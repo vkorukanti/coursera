@@ -164,7 +164,7 @@ pause;
 %  lambda to see how the fit and learning curve change.
 %
 
-lambda = 0;
+lambda = 1;
 [theta] = trainLinearReg(X_poly, y, lambda);
 
 % Plot training data and fit
@@ -217,4 +217,11 @@ for i = 1:length(lambda_vec)
 end
 
 fprintf('Program paused. Press enter to continue.\n');
+
+[theta] = trainLinearReg(X_poly, y, 3);
+
+[J, grad] = linearRegCostFunction(X_poly_test, ytest, theta, 0);
+
+fprintf('Error on test data with lambda=3 is %f\n', J);
+
 pause;

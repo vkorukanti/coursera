@@ -8,30 +8,19 @@ function [J, grad] = linearRegCostFunction(X, y, theta, lambda)
 % Initialize some useful values
 m = length(y); % number of training examples
 
-% You need to return the following variables correctly 
-J = 0;
-grad = zeros(size(theta));
+hx = X*theta;
+err = hx - y;
+err_sq = err .* err;
+J = (1/(2*m))*sum(err_sq(:));
 
-% ====================== YOUR CODE HERE ======================
-% Instructions: Compute the cost and gradient of regularized linear 
-%               regression for a particular choice of theta.
-%
-%               You should set J to the cost and grad to the gradient.
-%
+%create a clone of theta vector where theta(1,1) is 0
+theta_clone = theta;
+theta_clone(1,1) = 0;
 
+% add regularization factor
+reg = (lambda/(2*m))*sum((theta_clone .* theta_clone)(:));
+J += reg;
 
-
-
-
-
-
-
-
-
-
-
-% =========================================================================
-
-grad = grad(:);
+grad = (1/m) * (X'*(hx - y)) + (lambda/m)*theta_clone;
 
 end
